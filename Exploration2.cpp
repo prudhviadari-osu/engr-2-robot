@@ -64,7 +64,16 @@ void ERCMain()
 
     // Repeat process for remaining optosensors, and repeat all three for the curved line values
     // <ADD CODE HERE>
+    int motor_base, motor_diff;
+    while(middle_opto.Value() > 3.25 && middle_opto.Value() < 3.90){
+        left_motor.SetPercent(35);
+        right_motor.SetPercent(-35);
+    }
     
+
+    left_motor.SetPercent(35);
+    right_motor.SetPercent(-35);
+
 
 
     // Print end message to screen
