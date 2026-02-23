@@ -2,6 +2,8 @@
 #include <FEHIO.h>
 #include <FEHSD.h>
 #include <FEHMotor.h>
+#include <Arduino.h>
+#include <FEHUtility.h>
 
 // Declarations for analog optosensors
 FEHMotor left_motor(FEHMotor::Motor0,9.0);
@@ -74,6 +76,7 @@ void ERCMain()
 
     // Repeat process for remaining optosensors, and repeat all three for the curved line values
     // <ADD CODE HERE>
+
 
     // Print end message to screen
     LCD.Clear(BLACK);
