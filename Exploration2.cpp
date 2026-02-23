@@ -49,33 +49,22 @@ void ERCMain()
     // <ADD CODE HERE>
     
     // Middle Optosensor on straight line
-    LCD.Clear(BLACK);
-    if(middle_opto.Value() > 3.25 && middle_opto.Value() < 3.90){
+    while (middle_opto.Value() > 3.25 && middle_opto.Value() < 3.90){
         LCD.WriteLine("Middle Optosensor is on the line");
     }
-    else{
-        LCD.WriteLine("Middle Optosensor is off the line");
-    }
     // Left Optosensor on curved line
-    LCD.Clear(BLACK);
-    if(left_opto.Value() > 3.25 && left_opto.Value() < 3.90){
+    while (left_opto.Value() > 3.25 && left_opto.Value() < 3.90){
         LCD.WriteLine("Left Optosensor is on the line");
     }
-    else{
-        LCD.WriteLine("Left Optosensor is off the line");
-    }
     //Right photosensor
-    LCD.Clear(BLACK);
-    if(right_opto.Value() > 3.25 && right_opto.Value() < 3.90){
+    while (right_opto.Value() > 3.25 && right_opto.Value() < 3.90){
         LCD.WriteLine("Right Optosensor is on the line");
-    }
-    else{
-        LCD.WriteLine("Right Optosensor is off the line");
     }
 
 
     // Repeat process for remaining optosensors, and repeat all three for the curved line values
     // <ADD CODE HERE>
+    
 
 
     // Print end message to screen
