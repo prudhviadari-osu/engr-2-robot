@@ -85,6 +85,11 @@ void ERCMain()
             LCD.WriteLine("Middle Optosensor is on the line");
             LCD.WriteLine("Right Optosensor is on the line");
         }
+        else if (leftOn && midOn && rightOn){
+            left_motor.SetPercent(motor_base - motor_diff);
+            right_motor.SetPercent(motor_base + motor_diff);
+            LCD.WriteLine("All Optosensors are on the line");
+        }
         else{
             left_motor.SetPercent(0);
             right_motor.SetPercent(0);
