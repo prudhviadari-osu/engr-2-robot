@@ -25,54 +25,68 @@ void ERCMain()
     while(!LCD.Touch(&x,&y)); //Wait for screen to be pressed
     while(LCD.Touch(&x,&y)); //Wait for screen to be unpressed
 
-    // Record values for optosensors on and off of the straight line
-    // Left Optosensor on straight line
-    LCD.Clear(BLACK);
-    LCD.WriteLine("Place left optosensor on straight line");
-    Sleep(0.25); // Wait to avoid double input
-    LCD.WriteLine("Touch screen to record value (1/12)");
-    while(!LCD.Touch(&x,&y)); //Wait for screen to be pressed
-    while(LCD.Touch(&x,&y)); //Wait for screen to be unpressed
-    // Write the value returned by the optosensor to the screen
-    float leftOptosensorValue = left_opto.Value();
-    LCD.Write("Left Optosensor Value:");
-    LCD.WriteLine(leftOptosensorValue);
+    // // Record values for optosensors on and off of the straight line
+    // // Left Optosensor on straight line
+    // LCD.Clear(BLACK);
+    // LCD.WriteLine("Place left optosensor on straight line");
+    // Sleep(0.25); // Wait to avoid double input
+    // LCD.WriteLine("Touch screen to record value (1/12)");
+    // while(!LCD.Touch(&x,&y)); //Wait for screen to be pressed
+    // while(LCD.Touch(&x,&y)); //Wait for screen to be unpressed
+    // // Write the value returned by the optosensor to the screen
+    // float leftOptosensorValue = left_opto.Value();
+    // LCD.Write("Left Optosensor Value:");
+    // LCD.WriteLine(leftOptosensorValue);
 
-    // Left Optosensor off straight line
-    LCD.Clear(BLACK);
-    LCD.WriteLine("Place left optosensor off straight line");
-    Sleep(0.25); // Wait to avoid double input
-    LCD.WriteLine("Touch screen to record value (2/12)");
-    while(!LCD.Touch(&x,&y)); //Wait for screen to be pressed
-    while(LCD.Touch(&x,&y)); //Wait for screen to be unpressed
-    // Write the value returned by the optosensor to the screen
-    // <ADD CODE HERE>
+    // // Left Optosensor off straight line
+    // LCD.Clear(BLACK);
+    // LCD.WriteLine("Place left optosensor off straight line");
+    // Sleep(0.25); // Wait to avoid double input
+    // LCD.WriteLine("Touch screen to record value (2/12)");
+    // while(!LCD.Touch(&x,&y)); //Wait for screen to be pressed
+    // while(LCD.Touch(&x,&y)); //Wait for screen to be unpressed
+    // // Write the value returned by the optosensor to the screen
+    // // <ADD CODE HERE>
     
-    // Middle Optosensor on straight line
-    while (middle_opto.Value() > 3.25 && middle_opto.Value() < 3.90){
-        LCD.WriteLine("Middle Optosensor is on the line");
-    }
-    // Left Optosensor on curved line
-    while (left_opto.Value() > 3.25 && left_opto.Value() < 3.90){
-        LCD.WriteLine("Left Optosensor is on the line");
-    }
-    //Right photosensor
-    while (right_opto.Value() > 3.25 && right_opto.Value() < 3.90){
-        LCD.WriteLine("Right Optosensor is on the line");
-    }
+    // // Middle Optosensor on straight line
+    // while (middle_opto.Value() > 3.25 && middle_opto.Value() < 3.90){
+    //     LCD.WriteLine("Middle Optosensor is on the line");
+    // }
+    // // Left Optosensor on curved line
+    // while (left_opto.Value() > 3.25 && left_opto.Value() < 3.90){
+    //     LCD.WriteLine("Left Optosensor is on the line");
+    // }
+    // //Right photosensor
+    // while (right_opto.Value() > 3.25 && right_opto.Value() < 3.90){
+    //     LCD.WriteLine("Right Optosensor is on the line");
+    // }
 
 
     // Repeat process for remaining optosensors, and repeat all three for the curved line values
     // <ADD CODE HERE>
-    int motor_base, motor_diff;
-    while(middle_opto.Value() > 3.25 && middle_opto.Value() < 3.90){
-        left_motor.SetPercent(35);
-        right_motor.SetPercent(-35);
-    }
+    int motor_base =25, motor_diff = 10;
+    
+    
+    while(!LCD.Touch(&x,&y)){
+        boolean midOn = middle_opto.Value() > 3.25 && middle_opto.Value() < 3.90;
+        boolean leftOn = left_opto.Value() > 3.25 && left_opto.Value() < 3.90;
+        boolean rightOn = right_opto.Value() > 3.25 && right_opto.Value() < 3.90;
+        if(leftOn && midOn ){
+            left_motor.SetPercent(motor_base - motor_diff);
+            right_motor.SetPercent(-motor_base);
+        }
+        else if( rightOn && midOn ){
+            left_motor.SetPercent(-motor_base);
+            right_motor.SetPercent(motor_base - motor_diff);
+        }
+        else{
+            left_motor.SetPercent(motor_base);
+            right_motor.SetPercent(-motor_base);
+        }
+        Sleep(0.5);
+}
     
 
-    left_motor.SetPercent(35);
-    right_motor.SetPercent(-35);
 
 
 
