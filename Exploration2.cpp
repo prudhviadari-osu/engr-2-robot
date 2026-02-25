@@ -68,22 +68,25 @@ void ERCMain()
     
     
     while(!LCD.Touch(&x,&y)){
-        boolean midOn = middle_opto.Value() > 3.25 && middle_opto.Value() < 3.90;
-        boolean leftOn = left_opto.Value() > 3.25 && left_opto.Value() < 3.90;
-        boolean rightOn = right_opto.Value() > 3.25 && right_opto.Value() < 3.90;
-        if(leftOn && midOn ){
-            left_motor.SetPercent(motor_base - motor_diff);
-            right_motor.SetPercent(-motor_base);
+        boolean midOn = middle_opto.Value() > 3 && middle_opto.Value() < 4;
+        boolean leftOn = left_opto.Value() > 3 && left_opto.Value() < 4;
+        boolean rightOn = right_opto.Value() > 3 && right_opto.Value() < 4;
+        if (midOn){
+            left_motor.SetPercent(motor_base);
+            right_motor.SetPercent(motor_base);
         }
-        else if( rightOn && midOn ){
-            left_motor.SetPercent(-motor_base);
+        else if (leftOn){
+            left_motor.SetPercent(motor_base - motor_diff);
+            right_motor.SetPercent(motor_base + motor_diff);
+        }
+        else if (rightOn){
+            left_motor.SetPercent(motor_base + motor_diff);
             right_motor.SetPercent(motor_base - motor_diff);
         }
         else{
-            left_motor.SetPercent(motor_base);
-            right_motor.SetPercent(-motor_base);
+            left_motor.SetPercent(0);
+            right_motor.SetPercent(0);
         }
-        Sleep(0.5);
 }
     
 
