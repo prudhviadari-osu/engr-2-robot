@@ -64,7 +64,6 @@ void ERCMain()
 
     // Repeat process for remaining optosensors, and repeat all three for the curved line values
     int motor_base = -25, motor_diff = -10;
-    int turnState = 0;
     while(!LCD.Touch(&x,&y)){
         boolean midOn = middle_opto.Value() > 3 && middle_opto.Value() < 4;
         boolean leftOn = left_opto.Value() > 3 && left_opto.Value() < 4;
@@ -80,7 +79,6 @@ void ERCMain()
             right_motor.SetPercent(motor_base + motor_diff);
             LCD.WriteLine("Middle Optosensor is on the line");
             LCD.WriteLine("Left Optosensor is on the line");
-            turnState = 0;
             LCD.Clear(BLACK);
         }
         else if (rightOn && midOn && !leftOn){
@@ -88,21 +86,21 @@ void ERCMain()
             right_motor.SetPercent(motor_base - motor_diff);
             LCD.WriteLine("Middle Optosensor is on the line");
             LCD.WriteLine("Right Optosensor is on the line");
-            turnState = 1;
+            LCD.Clear(BLACK);
+        }
+        else if (midOn && leftOn && rightOn){
+            left_motor.SetPercent(motor_base);
+            right_motor.SetPercent(motor_base);
+            LCD.WriteLine("All Optosensor are on the line");
             LCD.Clear(BLACK);
         }
         else {
-            if (turnState == 0) {
-                left_motor.SetPercent(motor_base - motor_diff);
-                right_motor.SetPercent(motor_base + motor_diff);
-            }
-            else if (turnState == 1) {
-                left_motor.SetPercent(motor_base + motor_diff);
-                right_motor.SetPercent(motor_base - motor_diff);
-            }
+            left_motor.SetPercent(motor_base);
+            right_motor.SetPercent(-motor_base);
             LCD.WriteLine("No Optosensor is on the line");
             LCD.Clear(BLACK);
         }
+
 }
 
     // Print end message to screen
