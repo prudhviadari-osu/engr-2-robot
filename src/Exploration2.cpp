@@ -64,6 +64,7 @@ void ERCMain()
 
     // Repeat process for remaining optosensors, and repeat all three for the curved line values
     int motor_base = -25, motor_diff = -10;
+    int turnState = 0;
     while(!LCD.Touch(&x,&y)){
         boolean midOn = middle_opto.Value() > 3 && middle_opto.Value() < 4;
         boolean leftOn = left_opto.Value() > 3 && left_opto.Value() < 4;
@@ -79,6 +80,7 @@ void ERCMain()
             right_motor.SetPercent(motor_base + motor_diff);
             LCD.WriteLine("Middle Optosensor is on the line");
             LCD.WriteLine("Left Optosensor is on the line");
+            turnState = 0;
             LCD.Clear(BLACK);
         }
         else if (rightOn && midOn && !leftOn){
@@ -86,23 +88,20 @@ void ERCMain()
             right_motor.SetPercent(motor_base - motor_diff);
             LCD.WriteLine("Middle Optosensor is on the line");
             LCD.WriteLine("Right Optosensor is on the line");
-            LCD.Clear(BLACK);
-        }
-        else if (leftOn && !midOn && !rightOn){
-            left_motor.SetPercent(motor_base - motor_diff);
-            right_motor.SetPercent(motor_base + motor_diff);
-            LCD.WriteLine("Left Optosensor is on the line");
-            LCD.Clear(BLACK);
-        }
-        else if (rightOn && !midOn && !leftOn){
-            left_motor.SetPercent(motor_base + motor_diff);
-            right_motor.SetPercent(motor_base - motor_diff);
-            LCD.WriteLine("Right Optosensor is on the line");
+            turnState = 1;
             LCD.Clear(BLACK);
         }
         else {
-            left_motor.SetPercent(0);
-            right_motor.SetPercent(0);
+            if (turnState == 0) {
+                left_motor.SetPercent(motor_base - motor_diff);
+                right_motor.SetPercent(motor_base + motor_diff);
+            }
+            else if (turnState == 1) {
+                left_motor.SetPercent(motor_base + motor_diff);
+                right_motor.SetPercent(motor_base - motor_diff);
+            }
+            LCD.WriteLine("No Optosensor is on the line");
+            LCD.Clear(BLACK);
         }
 }
 
