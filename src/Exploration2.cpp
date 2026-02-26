@@ -88,11 +88,23 @@ void ERCMain()
             LCD.WriteLine("Right Optosensor is on the line");
             LCD.Clear(BLACK);
         }
+        else if (leftOn && !midOn && !rightOn){
+            left_motor.SetPercent(motor_base - motor_diff);
+            right_motor.SetPercent(motor_base + motor_diff);
+            LCD.WriteLine("Left Optosensor is on the line");
+            LCD.Clear(BLACK);
+        }
+        else if (rightOn && !midOn && !leftOn){
+            left_motor.SetPercent(motor_base + motor_diff);
+            right_motor.SetPercent(motor_base - motor_diff);
+            LCD.WriteLine("Right Optosensor is on the line");
+            LCD.Clear(BLACK);
+        }
+        else {
+            left_motor.SetPercent(0);
+            right_motor.SetPercent(0);
+        }
 }
-    
-
-
-
 
     // Print end message to screen
     LCD.Clear(BLACK);
