@@ -101,6 +101,9 @@ void ERCMain()
                 boolean turnState = true;
             }
             LCD.WriteLine("Something is going wrong. Looking for line...");
+            LCD.WriteLine("Left Optosensor Value:" + String(left_opto.Value()));
+            LCD.WriteLine("Middle Optosensor Value:" + String(middle_opto.Value()));
+            LCD.WriteLine("Right Optosensor Value:" + String(right_opto.Value()));
             LCD.Clear(BLACK);
         }
         Sleep(0.1);
