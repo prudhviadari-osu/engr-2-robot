@@ -64,6 +64,7 @@ void ERCMain()
 
     // Repeat process for remaining optosensors, and repeat all three for the curved line values
     int motor_base = -25, motor_diff = -10;
+    boolean turnState = true;
     while(!LCD.Touch(&x,&y)){
         boolean midOn = middle_opto.Value() > 3 && middle_opto.Value() < 4;
         boolean leftOn = left_opto.Value() > 3 && left_opto.Value() < 4;
@@ -89,18 +90,20 @@ void ERCMain()
             LCD.Clear(BLACK);
         }
         else{
-            left_motor.SetPercent(5);
-            right_motor.SetPercent(5);
-            Sleep(0.25);
-            left_motor.SetPercent(15);
-            right_motor.SetPercent(5);
-            Sleep(0.25);
-            left_motor.SetPercent(5);
-            right_motor.SetPercent(15);
-            Sleep(0.25);
+            if (turnState){
+                left_motor.SetPercent(5);
+                right_motor.SetPercent(10);
+                boolean turnState = false;
+            }
+            else{
+                left_motor.SetPercent(10);
+                right_motor.SetPercent(5);
+                boolean turnState = true;
+            }
             LCD.WriteLine("Something is going wrong. Looking for line...");
             LCD.Clear(BLACK);
         }
+        Sleep(0.1);
 
 }
 
